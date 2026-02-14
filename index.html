@@ -460,7 +460,7 @@
 <body>
     <div class="app-container">
         <div class="header">
-            <img src="logo2.png" alt="AtendeSEG Logo">
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e1676731-cad5-4dd2-8ba7-d421880d896a" alt="AtendeSEG Logo">
             <h1>Calculadora de Mensalidade</h1>
             <p>Configure seu plano personalizado e calcule o valor da sua mensalidade</p>
         </div>
@@ -539,6 +539,24 @@
                     </div>
                 </div>
 
+                <div class="plan-item" style="border: 2px solid #9B4DAE; background: linear-gradient(135deg, #F8F4FB 0%, #F0E6F3 100%);">
+                    <h3>💎 Cliente Ametista <span class="badge badge-premium">EXCLUSIVO</span></h3>
+                    <p>Seu Account Manager pessoal: você decide, nós executamos</p>
+                    <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 6px; border: 1px solid #9B4DAE;">
+                        <strong style="color: var(--color-primary);">Experiência Premium Completa:</strong><br>
+                        • <strong>Investimento:</strong> 50% da mensalidade (mínimo R$ 300,00)<br>
+                        • Account Manager dedicado à sua operação<br>
+                        • Nós fazemos toda configuração e ajustes para você<br>
+                        • Suporte proativo: antecipamos suas necessidades<br>
+                        • Foque no seu negócio, cuidamos da tecnologia<br>
+                        • Melhorias contínuas sem você precisar solicitar
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="whiteGlove" onchange="updateCalculation()">
+                        <label for="whiteGlove">💎 Quero ser Cliente Ametista</label>
+                    </div>
+                </div>
+
                 <div class="info-note">
                     <strong>💡 Sobre a Implantação:</strong><br>
                     • Taxa padrão de implantação: R$ 400,00<br>
@@ -569,6 +587,10 @@
                 <div id="aiSummary" class="summary-item" style="display: none;">
                     <span>Agente de IA</span>
                     <span>R$ 350,00</span>
+                </div>
+                <div id="whiteGloveSummary" class="summary-item" style="display: none;">
+                    <span>💎 Cliente Ametista</span>
+                    <span id="whiteGlovePrice">R$ 0,00</span>
                 </div>
 
                 <div class="total-section">
@@ -626,6 +648,18 @@
                     <label>Telefone</label>
                     <input type="tel" id="contactPhone" placeholder="(00) 00000-0000">
                 </div>
+
+                <div style="border-top: 2px solid var(--color-border); padding-top: 20px; margin-top: 20px;">
+                    <h3 style="color: var(--color-primary); margin-bottom: 15px;">💰 Desconto na Implantação</h3>
+                    <div class="form-group">
+                        <label>Desconto no valor de implantação (R$)</label>
+                        <input type="number" id="setupDiscount" placeholder="0,00" min="0" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Motivo do desconto</label>
+                        <input type="text" id="discountReason" placeholder="Ex: Cliente especial, parceria estratégica, etc.">
+                    </div>
+                </div>
                 
                 <div class="modal-actions">
                     <button class="btn btn-secondary" style="flex: 1;" onclick="closeProposalModal()">
@@ -644,7 +678,8 @@
             whatsapp: 0,
             users: 0,
             socialMedia: false,
-            aiAgent: false
+            aiAgent: false,
+            whiteGlove: false
         };
 
         const prices = {
@@ -684,6 +719,7 @@
         function updateCalculation() {
             state.socialMedia = document.getElementById('socialMedia').checked;
             state.aiAgent = document.getElementById('aiAgent').checked;
+            state.whiteGlove = document.getElementById('whiteGlove').checked;
             
             const aiDiscount = document.getElementById('aiDiscount');
             if (state.aiAgent) {
@@ -742,6 +778,17 @@
                 oneTimeTotal = prices.standardSetup;
             }
 
+            const whiteGloveSummary = document.getElementById('whiteGloveSummary');
+            if (state.whiteGlove) {
+                const calculatedCost = monthlyTotal * 0.5;
+                const whiteGloveCost = Math.max(300, calculatedCost);
+                monthlyTotal += whiteGloveCost;
+                whiteGloveSummary.style.display = 'flex';
+                document.getElementById('whiteGlovePrice').textContent = `R$ ${whiteGloveCost.toFixed(2)}`;
+            } else {
+                whiteGloveSummary.style.display = 'none';
+            }
+
             document.getElementById('monthlyTotal').textContent = `R$ ${monthlyTotal.toFixed(2)}`;
             document.getElementById('finalTotal').textContent = `R$ ${monthlyTotal.toFixed(2)}`;
 
@@ -774,8 +821,10 @@
 
             const companyCNPJ = document.getElementById('companyCNPJ').value.trim();
             const contactPhone = document.getElementById('contactPhone').value.trim();
+            const setupDiscount = parseFloat(document.getElementById('setupDiscount').value) || 0;
+            const discountReason = document.getElementById('discountReason').value.trim();
 
-            const proposal = generateProposalHTML(companyName, companyCNPJ, contactName, contactEmail, contactPhone);
+            const proposal = generateProposalHTML(companyName, companyCNPJ, contactName, contactEmail, contactPhone, setupDiscount, discountReason);
             
             const printWindow = window.open('', '_blank');
             printWindow.document.write(proposal);
@@ -788,7 +837,7 @@
             closeProposalModal();
         }
 
-        function generateProposalHTML(companyName, cnpj, contactName, email, phone) {
+        function generateProposalHTML(companyName, cnpj, contactName, email, phone, setupDiscount, discountReason) {
             const currentDate = new Date().toLocaleDateString('pt-BR', { 
                 day: '2-digit', 
                 month: 'long', 
@@ -808,6 +857,11 @@
             if (state.whatsapp > 0) monthlyTotal += state.whatsapp * prices.whatsapp;
             if (state.users > 0) monthlyTotal += state.users * prices.user;
             if (state.socialMedia) monthlyTotal += prices.social;
+            
+            const whiteGloveCost = state.whiteGlove ? monthlyTotal * 0.5 : 0;
+            if (state.whiteGlove) monthlyTotal += whiteGloveCost;
+
+            oneTimeTotal = Math.max(0, oneTimeTotal - setupDiscount);
 
             let featuresHTML = `
                 <div class="feature-section">
@@ -833,6 +887,29 @@
                         <li><strong>Integração via API:</strong> Conecte com outros sistemas via webhook</li>
                     </ul>
             `;
+
+            if (state.whiteGlove) {
+                featuresHTML += `
+                    <h4 style="color: #5E1E6E; margin-top: 20px; page-break-inside: avoid;">💎 Cliente Ametista - Experiência Premium Exclusiva</h4>
+                    <ul style="line-height: 1.8;">
+                        <li><strong>Account Manager Dedicado:</strong> Profissional exclusivo 100% focado na sua operação</li>
+                        <li><strong>Você Decide, Nós Executamos:</strong> Basta dizer o que precisa, fazemos acontecer</li>
+                        <li><strong>Configuração Completa por Nós:</strong> Zero trabalho técnico da sua parte</li>
+                        <li><strong>Suporte Proativo Inteligente:</strong> Antecipamos necessidades antes que você perceba</li>
+                        <li><strong>Melhorias Contínuas Automáticas:</strong> Otimizações constantes sem você precisar pedir</li>
+                        <li><strong>Atendimento Prioritário VIP:</strong> Prioridade máxima absoluta em tudo</li>
+                        <li><strong>Consultoria Estratégica Personalizada:</strong> Orientação especializada para seu mercado</li>
+                        <li><strong>Desenvolvimento Sob Medida:</strong> Soluções customizadas para suas necessidades únicas</li>
+                        <li><strong>Relatórios Executivos Exclusivos:</strong> Insights e análises detalhadas mensais</li>
+                        <li><strong>Treinamento VIP da Equipe:</strong> Capacitação completa e contínua com prioridade</li>
+                        <li><strong>Gestão Completa da Plataforma:</strong> Cuidamos de tudo enquanto você foca no negócio</li>
+                        <li><strong>Linha Direta com Especialista:</strong> Canal exclusivo de comunicação prioritária</li>
+                    </ul>
+                    <div style="background: #F0E6F3; padding: 12px; border-left: 4px solid #9B4DAE; margin-top: 15px; border-radius: 4px;">
+                        <strong>💎 Por que ser Cliente Ametista?</strong> Todos os clientes têm suporte técnico constante e imediato. Como Cliente Ametista, você ganha um Account Manager dedicado que gerencia proativamente toda sua operação: implementa melhorias continuamente, cuida de toda parte técnica e trabalhosa, e transforma suas ideias em realidade. Você apenas decide o que quer, nós cuidamos de fazer acontecer. Foque 100% no seu negócio enquanto garantimos que sua tecnologia funcione perfeitamente.
+                    </div>
+                `;
+            }
 
             if (state.socialMedia) {
                 featuresHTML += `
@@ -1017,7 +1094,7 @@
                             ${oneTimeTotal > 0 ? `<div class="info-row" style="font-size: 12px; color: #6C757D;">Parcelável em até 6x sem juros</div>` : ''}
                             <div class="info-row" style="margin-top: 10px;">
                                 <strong>Configuração:</strong><br>
-                                <small>${1 + state.whatsapp} WhatsApp | ${3 + state.users} Usuários${state.socialMedia ? ' | Redes Sociais' : ''}${state.aiAgent ? ' | IA' : ''}</small>
+                                <small>${1 + state.whatsapp} WhatsApp | ${3 + state.users} Usuários${state.socialMedia ? ' | Redes Sociais' : ''}${state.aiAgent ? ' | IA' : ''}${state.whiteGlove ? ' | White Glove' : ''}</small>
                             </div>
                         </div>
                     </div>
@@ -1073,6 +1150,16 @@
                                 <td>R$ 350,00</td>
                             </tr>
                             ` : ''}
+                            ${state.whiteGlove ? `
+                            <tr style="background: #F8F4FB;">
+                                <td><strong>💎 Cliente Ametista</strong><br>
+                                    <small>Account Management Exclusivo (Mínimo R$ 300,00)</small>
+                                </td>
+                                <td>1</td>
+                                <td>R$ ${whiteGloveCost.toFixed(2)}</td>
+                                <td>R$ ${whiteGloveCost.toFixed(2)}</td>
+                            </tr>
+                            ` : ''}
                             <tr class="total-row">
                                 <td colspan="3"><strong>MENSALIDADE TOTAL</strong></td>
                                 <td><strong>R$ ${monthlyTotal.toFixed(2)}</strong></td>
@@ -1105,6 +1192,19 @@
                                 <td><strong>R$ ${prices.standardSetup.toFixed(2)}</strong></td>
                             </tr>
                             `}
+                            ${setupDiscount > 0 && discountReason ? `
+                            <tr style="background: #D4EDDA;">
+                                <td colspan="2">
+                                    <strong style="color: #155724;">💰 Desconto Aplicado: R$ ${setupDiscount.toFixed(2)}</strong><br>
+                                    <small>Desconto ofertado pelo Gerente Comercial Daniel Gois</small><br>
+                                    <small><em>Motivo: ${discountReason}</em></small>
+                                </td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>VALOR FINAL DA IMPLANTAÇÃO</strong></td>
+                                <td><strong>R$ ${oneTimeTotal.toFixed(2)}</strong></td>
+                            </tr>
+                            ` : ''}
                         </tbody>
                     </table>
                     <div class="highlight-box">
