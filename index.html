@@ -650,14 +650,21 @@
                 </div>
 
                 <div style="border-top: 2px solid var(--color-border); padding-top: 20px; margin-top: 20px;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 15px;">💰 Desconto na Implantação</h3>
+                    <h3 style="color: var(--color-primary); margin-bottom: 15px;">💰 Descontos Comerciais</h3>
                     <div class="form-group">
-                        <label>Desconto no valor de implantação (R$)</label>
+                        <label>Desconto no valor de desenvolvimento/implantação (R$)</label>
                         <input type="number" id="setupDiscount" placeholder="0,00" min="0" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Desconto no valor da mensalidade (R$)</label>
+                        <input type="number" id="monthlyDiscount" placeholder="0,00" min="0" step="0.01">
                     </div>
                     <div class="form-group">
                         <label>Motivo do desconto</label>
                         <input type="text" id="discountReason" placeholder="Ex: Cliente especial, parceria estratégica, etc.">
+                    </div>
+                    <div style="background: #FFF3CD; border-left: 4px solid #856404; padding: 12px; border-radius: 4px; font-size: 13px; color: #856404; margin-top: 5px;">
+                        ⚠️ Todo desconto aplicado será registrado na proposta como autorizado pelo <strong>Gerente Comercial Daniel Gois</strong>
                     </div>
                 </div>
                 
@@ -822,9 +829,10 @@
             const companyCNPJ = document.getElementById('companyCNPJ').value.trim();
             const contactPhone = document.getElementById('contactPhone').value.trim();
             const setupDiscount = parseFloat(document.getElementById('setupDiscount').value) || 0;
+            const monthlyDiscount = parseFloat(document.getElementById('monthlyDiscount').value) || 0;
             const discountReason = document.getElementById('discountReason').value.trim();
 
-            const proposal = generateProposalHTML(companyName, companyCNPJ, contactName, contactEmail, contactPhone, setupDiscount, discountReason);
+            const proposal = generateProposalHTML(companyName, companyCNPJ, contactName, contactEmail, contactPhone, setupDiscount, monthlyDiscount, discountReason);
             
             const printWindow = window.open('', '_blank');
             printWindow.document.write(proposal);
@@ -837,7 +845,7 @@
             closeProposalModal();
         }
 
-        function generateProposalHTML(companyName, cnpj, contactName, email, phone, setupDiscount, discountReason) {
+        function generateProposalHTML(companyName, cnpj, contactName, email, phone, setupDiscount, monthlyDiscount, discountReason) {
             const currentDate = new Date().toLocaleDateString('pt-BR', { 
                 day: '2-digit', 
                 month: 'long', 
@@ -862,6 +870,10 @@
             if (state.whiteGlove) monthlyTotal += whiteGloveCost;
 
             oneTimeTotal = Math.max(0, oneTimeTotal - setupDiscount);
+
+            // Aplicar desconto na mensalidade (após cálculo do White Glove)
+            const originalMonthlyTotal = monthlyTotal;
+            monthlyTotal = Math.max(0, monthlyTotal - monthlyDiscount);
 
             let featuresHTML = `
                 <div class="feature-section">
@@ -1089,7 +1101,7 @@
 
                         <div class="info-section">
                             <h3 style="margin-top: 0;">Resumo Financeiro</h3>
-                            <div class="info-row"><strong>Mensalidade:</strong> <span style="font-size: 20px; color: #7B2D8E;">R$ ${monthlyTotal.toFixed(2)}</span></div>
+                            <div class="info-row"><strong>Mensalidade:</strong> <span style="font-size: 20px; color: #7B2D8E;">R$ ${monthlyTotal.toFixed(2)}</span>${monthlyDiscount > 0 ? `<br><small style="color: #155724;">✓ Inclui desconto de R$ ${monthlyDiscount.toFixed(2)} (aut. Ger. Comercial Daniel Gois)</small>` : ''}</div>
                             ${oneTimeTotal > 0 ? `<div class="info-row"><strong>Investimento Inicial:</strong> <span style="font-size: 18px; color: #5E1E6E;">R$ ${oneTimeTotal.toFixed(2)}</span></div>` : ''}
                             ${oneTimeTotal > 0 ? `<div class="info-row" style="font-size: 12px; color: #6C757D;">Parcelável em até 6x sem juros</div>` : ''}
                             <div class="info-row" style="margin-top: 10px;">
@@ -1160,8 +1172,17 @@
                                 <td>R$ ${whiteGloveCost.toFixed(2)}</td>
                             </tr>
                             ` : ''}
+                            ${monthlyDiscount > 0 ? `
+                            <tr style="background: #D4EDDA;">
+                                <td colspan="3">
+                                    <strong style="color: #155724;">💰 Desconto na Mensalidade</strong><br>
+                                    <small>Desconto autorizado pelo Gerente Comercial <strong>Daniel Gois</strong></small>
+                                    ${discountReason ? `<br><small><em>Motivo: ${discountReason}</em></small>` : ''}
+                                </td>
+                                <td><strong style="color: #155724;">- R$ ${monthlyDiscount.toFixed(2)}</strong></td>
+                            </tr>` : ''}
                             <tr class="total-row">
-                                <td colspan="3"><strong>MENSALIDADE TOTAL</strong></td>
+                                <td colspan="3"><strong>${monthlyDiscount > 0 ? 'MENSALIDADE COM DESCONTO' : 'MENSALIDADE TOTAL'}</strong></td>
                                 <td><strong>R$ ${monthlyTotal.toFixed(2)}</strong></td>
                             </tr>
                         </tbody>
@@ -1192,12 +1213,12 @@
                                 <td><strong>R$ ${prices.standardSetup.toFixed(2)}</strong></td>
                             </tr>
                             `}
-                            ${setupDiscount > 0 && discountReason ? `
+                            ${setupDiscount > 0 ? `
                             <tr style="background: #D4EDDA;">
                                 <td colspan="2">
                                     <strong style="color: #155724;">💰 Desconto Aplicado: R$ ${setupDiscount.toFixed(2)}</strong><br>
-                                    <small>Desconto ofertado pelo Gerente Comercial Daniel Gois</small><br>
-                                    <small><em>Motivo: ${discountReason}</em></small>
+                                    <small>Desconto autorizado pelo Gerente Comercial <strong>Daniel Gois</strong></small>
+                                    ${discountReason ? `<br><small><em>Motivo: ${discountReason}</em></small>` : ''}
                                 </td>
                             </tr>
                             <tr class="total-row">
@@ -1250,4 +1271,3 @@
     </script>
 </body>
 </html>
-
