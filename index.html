@@ -16,13 +16,11 @@
             --color-border: #DEE2E6;
             --color-success: #28A745;
             --color-warning: #FFC107;
+            --color-voip: #0A6EBD;
+            --color-voip-light: #E7F3FF;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -31,11 +29,7 @@
             line-height: 1.6;
         }
 
-        .app-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .app-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
         .header {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
@@ -45,24 +39,9 @@
             box-shadow: 0 4px 6px rgba(123, 45, 142, 0.2);
             text-align: center;
         }
-
-        .header img {
-            max-width: 300px;
-            height: auto;
-            margin-bottom: 15px;
-        }
-
-        .header h1 {
-            color: white;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-        }
+        .header img { max-width: 300px; height: auto; margin-bottom: 15px; }
+        .header h1 { color: white; font-size: 28px; font-weight: 600; margin-bottom: 10px; }
+        .header p { color: rgba(255,255,255,0.9); font-size: 16px; }
 
         .main-content {
             display: grid;
@@ -75,7 +54,7 @@
             background: var(--color-surface);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .section-title {
@@ -95,12 +74,10 @@
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
-
         .plan-item:hover {
             border-color: var(--color-primary-light);
-            box-shadow: 0 4px 12px rgba(123, 45, 142, 0.15);
+            box-shadow: 0 4px 12px rgba(123,45,142,0.15);
         }
-
         .plan-item h3 {
             color: var(--color-primary);
             font-size: 18px;
@@ -108,32 +85,42 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
+        }
+        .plan-item p { color: var(--color-text-secondary); font-size: 14px; margin-bottom: 15px; }
+
+        .plan-item.voip-item {
+            border: 2px solid var(--color-voip);
+            background: linear-gradient(135deg, #F0F8FF 0%, #E7F3FF 100%);
+        }
+        .plan-item.voip-item h3 { color: var(--color-voip); }
+        .plan-item.voip-item:hover {
+            border-color: #084e8a;
+            box-shadow: 0 4px 12px rgba(10,110,189,0.2);
         }
 
-        .plan-item p {
-            color: var(--color-text-secondary);
-            font-size: 14px;
-            margin-bottom: 15px;
+        .voip-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 12px 0 15px 0;
         }
-
-        .control-group {
+        .voip-feature {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 6px;
+            font-size: 13px;
+            color: #1a4a6e;
+            background: rgba(10,110,189,0.08);
+            padding: 6px 10px;
+            border-radius: 6px;
         }
+        .voip-feature .icon { font-size: 14px; }
 
-        .control-group label {
-            font-weight: 500;
-            color: var(--color-text);
-            min-width: 80px;
-        }
+        .control-group { display: flex; align-items: center; gap: 15px; }
+        .control-group label { font-weight: 500; color: var(--color-text); min-width: 80px; }
 
-        .counter {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .counter { display: flex; align-items: center; gap: 10px; }
         .counter button {
             background: var(--color-primary);
             color: white;
@@ -148,23 +135,9 @@
             align-items: center;
             justify-content: center;
         }
-
-        .counter button:hover {
-            background: var(--color-primary-dark);
-            transform: scale(1.05);
-        }
-
-        .counter button:active {
-            transform: scale(0.95);
-        }
-
-        .counter span {
-            font-size: 18px;
-            font-weight: 600;
-            min-width: 40px;
-            text-align: center;
-            color: var(--color-primary);
-        }
+        .counter button:hover { background: var(--color-primary-dark); transform: scale(1.05); }
+        .counter button:active { transform: scale(0.95); }
+        .counter span { font-size: 18px; font-weight: 600; min-width: 40px; text-align: center; color: var(--color-primary); }
 
         .price-tag {
             background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
@@ -176,58 +149,27 @@
             display: inline-block;
             margin-left: auto;
         }
+        .price-tag.voip { background: linear-gradient(135deg, #1a7fd4, var(--color-voip)); }
 
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
+        .checkbox-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .checkbox-item input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: var(--color-primary); }
+        .checkbox-item label { flex: 1; cursor: pointer; font-weight: 500; }
+        .checkbox-item input[type="checkbox"].voip-check { accent-color: var(--color-voip); }
 
-        .checkbox-item input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            accent-color: var(--color-primary);
-        }
-
-        .checkbox-item label {
-            flex: 1;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
+        /* Summary */
         .summary-section {
             background: var(--color-surface);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             position: sticky;
             top: 20px;
             height: fit-content;
         }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-
-        .summary-item span:first-child {
-            color: var(--color-text-secondary);
-            font-size: 14px;
-        }
-
-        .summary-item span:last-child {
-            color: var(--color-text);
-            font-weight: 600;
-            font-size: 14px;
-        }
+        .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-item span:first-child { color: var(--color-text-secondary); font-size: 14px; }
+        .summary-item span:last-child { color: var(--color-text); font-weight: 600; font-size: 14px; }
 
         .total-section {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
@@ -235,37 +177,12 @@
             padding: 25px 30px;
             border-radius: 0 0 12px 12px;
         }
-
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .total-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .total-row span:first-child {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-        }
-
-        .total-row span:last-child {
-            color: white;
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .total-row.main-total span:first-child {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .total-row.main-total span:last-child {
-            font-size: 32px;
-        }
+        .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .total-row:last-child { margin-bottom: 0; }
+        .total-row span:first-child { color: rgba(255,255,255,0.9); font-size: 14px; }
+        .total-row span:last-child { color: white; font-weight: 700; font-size: 18px; }
+        .total-row.main-total span:first-child { font-size: 18px; font-weight: 600; }
+        .total-row.main-total span:last-child { font-size: 32px; }
 
         .btn {
             width: 100%;
@@ -278,162 +195,120 @@
             transition: all 0.3s;
             margin-top: 15px;
         }
+        .btn-primary { background: white; color: var(--color-primary); }
+        .btn-primary:hover { background: #F8F9FA; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .installment-note { color: rgba(255,255,255,0.8); font-size: 12px; text-align: center; margin-top: 10px; }
 
-        .btn-primary {
-            background: white;
-            color: var(--color-primary);
-        }
-
-        .btn-primary:hover {
-            background: #F8F9FA;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .installment-note {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 12px;
-            text-align: center;
-            margin-top: 10px;
-        }
-
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
+        .modal.active { display: flex; }
         .modal-content {
             background: white;
             border-radius: 12px;
-            max-width: 600px;
+            max-width: 680px;
             width: 100%;
-            max-height: 90vh;
+            max-height: 92vh;
             overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
-
         .modal-header {
             background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
             color: white;
             padding: 25px 30px;
             border-radius: 12px 12px 0 0;
         }
+        .modal-header h2 { font-size: 24px; margin-bottom: 5px; }
+        .modal-header p { opacity: 0.9; font-size: 14px; }
+        .modal-body { padding: 30px; }
 
-        .modal-header h2 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .modal-header p {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--color-text);
-        }
-
-        .form-group input {
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--color-text); }
+        .form-group label .optional { font-weight: 400; color: var(--color-text-secondary); font-size: 13px; margin-left: 6px; }
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid var(--color-border);
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-primary); }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--color-primary);
+        .modal-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--color-primary);
         }
+        .modal-section { border-top: 2px solid var(--color-border); padding-top: 20px; margin-top: 20px; }
 
-        .modal-actions {
-            display: flex;
+        /* Custom pricing grid */
+        .custom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 30px;
         }
+        .custom-grid .form-group { margin-bottom: 0; }
 
-        .btn-secondary {
-            background: var(--color-border);
-            color: var(--color-text);
-        }
-
-        .btn-secondary:hover {
-            background: #CED4DA;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
+        .custom-pricing-toggle {
+            background: #F8F4FB;
+            border: 2px dashed var(--color-primary-light);
+            border-radius: 8px;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-weight: 600;
-            margin-left: 8px;
+            color: var(--color-primary);
+            transition: all 0.2s;
+            margin-bottom: 15px;
+        }
+        .custom-pricing-toggle:hover { background: #F0E6F3; border-color: var(--color-primary); }
+        .custom-pricing-toggle input { width: 20px; height: 20px; accent-color: var(--color-primary); cursor: pointer; }
+
+        .custom-pricing-panel {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+        .custom-pricing-panel.open { display: block; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .badge-included {
-            background: #D4EDDA;
-            color: #155724;
-        }
-
-        .badge-premium {
+        .custom-warning {
             background: #FFF3CD;
+            border-left: 4px solid #FFC107;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-size: 13px;
             color: #856404;
+            margin-bottom: 18px;
         }
 
-        @media (max-width: 968px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
+        .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
+        .btn-secondary { background: var(--color-border); color: var(--color-text); }
+        .btn-secondary:hover { background: #CED4DA; }
 
-            .summary-section {
-                position: static;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-            
-            .calculator-section,
-            .btn {
-                display: none !important;
-            }
-            
-            .summary-section {
-                box-shadow: none;
-                border: 2px solid var(--color-primary);
-            }
-        }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+        .badge-included { background: #D4EDDA; color: #155724; }
+        .badge-premium { background: #FFF3CD; color: #856404; }
+        .badge-voip { background: #DDEEFF; color: #084e8a; }
 
         .info-note {
             background: #E7F3FF;
@@ -444,7 +319,6 @@
             font-size: 14px;
             color: #0D47A1;
         }
-
         .discount-applied {
             background: #D4EDDA;
             border-left: 4px solid var(--color-success);
@@ -455,819 +329,809 @@
             color: #155724;
             font-weight: 500;
         }
+
+        @media (max-width: 968px) {
+            .main-content { grid-template-columns: 1fr; }
+            .summary-section { position: static; }
+            .header h1 { font-size: 24px; }
+            .voip-features { grid-template-columns: 1fr; }
+            .custom-grid { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            body { background: white; }
+            .calculator-section, .btn { display: none !important; }
+            .summary-section { box-shadow: none; border: 2px solid var(--color-primary); }
+        }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <div class="header">
-            <img src="logo2.png" alt="AtendeSEG Logo">
-            <h1>Calculadora de Mensalidade</h1>
-            <p>Configure seu plano personalizado e calcule o valor da sua mensalidade</p>
-        </div>
+<div class="app-container">
 
-        <div class="main-content">
-            <div class="calculator-section">
-                <h2 class="section-title">📦 Plano Base</h2>
-                
-                <div class="plan-item">
-                    <h3>
-                        🎯 Plano Essencial
-                        <span class="price-tag">R$ 200,00/mês</span>
-                    </h3>
-                    <p>O plano base já inclui:</p>
-                    <div style="padding-left: 20px; color: var(--color-text-secondary); font-size: 14px;">
-                        ✓ 1 Conexão WhatsApp Business<br>
-                        ✓ 3 Usuários simultâneos<br>
-                        ✓ CRM completo para corretoras<br>
-                        ✓ Pipeline de vendas<br>
-                        ✓ Chat em tempo real<br>
-                        ✓ Gestão de contatos ilimitada
-                    </div>
-                </div>
+    <div class="header">
+        <img src="logo2.png" alt="AtendeSEG Logo">
+        <h1>Calculadora de Mensalidade</h1>
+        <p>Configure seu plano personalizado e calcule o valor da sua mensalidade</p>
+    </div>
 
-                <h2 class="section-title">➕ Recursos Adicionais</h2>
+    <div class="main-content">
+        <!-- LEFT: Calculator -->
+        <div class="calculator-section">
+            <h2 class="section-title">📦 Plano Base</h2>
 
-                <div class="plan-item">
-                    <h3>💬 Conexões WhatsApp <span class="price-tag">R$ 99,00/cada</span></h3>
-                    <p>Adicione mais números de WhatsApp à sua operação</p>
-                    <div class="control-group">
-                        <label>Quantidade:</label>
-                        <div class="counter">
-                            <button onclick="decreaseWhatsApp()">−</button>
-                            <span id="whatsappCount">0</span>
-                            <button onclick="increaseWhatsApp()">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="plan-item">
-                    <h3>👥 Usuários Adicionais <span class="price-tag">R$ 35,00/cada</span></h3>
-                    <p>Expanda sua equipe além dos 3 usuários inclusos</p>
-                    <div class="control-group">
-                        <label>Quantidade:</label>
-                        <div class="counter">
-                            <button onclick="decreaseUsers()">−</button>
-                            <span id="usersCount">0</span>
-                            <button onclick="increaseUsers()">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="plan-item">
-                    <h3>📱 Instagram e Facebook Messenger <span class="price-tag">R$ 60,00</span></h3>
-                    <p>Integre suas redes sociais ao atendimento omnichannel</p>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="socialMedia" onchange="updateCalculation()">
-                        <label for="socialMedia">Adicionar conexão de redes sociais</label>
-                    </div>
-                </div>
-
-                <div class="plan-item" style="border: 2px solid var(--color-primary);">
-                    <h3>🤖 Agente de Inteligência Artificial <span class="badge badge-premium">PREMIUM</span></h3>
-                    <p>Automação avançada com chatbot inteligente e respostas personalizadas</p>
-                    <div style="margin: 15px 0; padding: 15px; background: #FFF9E6; border-radius: 6px;">
-                        <strong style="color: var(--color-primary);">Investimento:</strong><br>
-                        • Mensalidade: <strong>R$ 350,00</strong><br>
-                        • Desenvolvimento e implantação: <strong>R$ 1.600,00</strong> (pagamento único)
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="aiAgent" onchange="updateCalculation()">
-                        <label for="aiAgent">Adicionar Agente de IA ao meu plano</label>
-                    </div>
-                    <div id="aiDiscount" class="discount-applied" style="display: none;">
-                        ✓ Desconto aplicado! Taxa de implantação padrão removida (economia de R$ 400,00)
-                    </div>
-                </div>
-
-                <div class="plan-item" style="border: 2px solid #9B4DAE; background: linear-gradient(135deg, #F8F4FB 0%, #F0E6F3 100%);">
-                    <h3>💎 Cliente Ametista <span class="badge badge-premium">EXCLUSIVO</span></h3>
-                    <p>Seu Account Manager pessoal: você decide, nós executamos</p>
-                    <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 6px; border: 1px solid #9B4DAE;">
-                        <strong style="color: var(--color-primary);">Experiência Premium Completa:</strong><br>
-                        • <strong>Investimento:</strong> 50% da mensalidade (mínimo R$ 300,00)<br>
-                        • Account Manager dedicado à sua operação<br>
-                        • Nós fazemos toda configuração e ajustes para você<br>
-                        • Suporte proativo: antecipamos suas necessidades<br>
-                        • Foque no seu negócio, cuidamos da tecnologia<br>
-                        • Melhorias contínuas sem você precisar solicitar
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="whiteGlove" onchange="updateCalculation()">
-                        <label for="whiteGlove">💎 Quero ser Cliente Ametista</label>
-                    </div>
-                </div>
-
-                <div class="info-note">
-                    <strong>💡 Sobre a Implantação:</strong><br>
-                    • Taxa padrão de implantação: R$ 400,00<br>
-                    • Ao contratar o Agente de IA junto com o sistema, a taxa padrão é dispensada<br>
-                    • Valores de desenvolvimento podem ser parcelados em até 6x no cartão de crédito
+            <div class="plan-item">
+                <h3>
+                    🏆 Plano Essencial
+                    <span class="price-tag">R$ 200,00/mês</span>
+                </h3>
+                <p>O plano base já inclui:</p>
+                <div style="padding-left: 20px; color: var(--color-text-secondary); font-size: 14px;">
+                    ✔ 1 Conexão WhatsApp Business<br>
+                    ✔ 3 Usuários simultâneos<br>
+                    ✔ CRM completo para corretoras<br>
+                    ✔ Pipeline de vendas<br>
+                    ✔ Chat em tempo real<br>
+                    ✔ Gestão de contatos ilimitada
                 </div>
             </div>
 
-            <div class="summary-section">
-                <h2 class="section-title">📊 Resumo do Plano</h2>
-                
-                <div class="summary-item">
-                    <span>Plano Base</span>
-                    <span>R$ 200,00</span>
+            <h2 class="section-title">➕ Recursos Adicionais</h2>
+
+            <div class="plan-item">
+                <h3>💬 Conexões WhatsApp <span class="price-tag">R$ 99,00/cada</span></h3>
+                <p>Adicione mais números de WhatsApp à sua operação</p>
+                <div class="control-group">
+                    <label>Quantidade:</label>
+                    <div class="counter">
+                        <button onclick="decreaseWhatsApp()">−</button>
+                        <span id="whatsappCount">0</span>
+                        <button onclick="increaseWhatsApp()">+</button>
+                    </div>
                 </div>
-                <div id="whatsappSummary" class="summary-item" style="display: none;">
-                    <span>Conexões WhatsApp (<span id="whatsappQty">0</span>x)</span>
-                    <span id="whatsappPrice">R$ 0,00</span>
+            </div>
+
+            <div class="plan-item">
+                <h3>👥 Usuários Adicionais <span class="price-tag">R$ 35,00/cada</span></h3>
+                <p>Expanda sua equipe além dos 3 usuários inclusos</p>
+                <div class="control-group">
+                    <label>Quantidade:</label>
+                    <div class="counter">
+                        <button onclick="decreaseUsers()">−</button>
+                        <span id="usersCount">0</span>
+                        <button onclick="increaseUsers()">+</button>
+                    </div>
                 </div>
-                <div id="usersSummary" class="summary-item" style="display: none;">
-                    <span>Usuários Adicionais (<span id="usersQty">0</span>x)</span>
-                    <span id="usersPrice">R$ 0,00</span>
+            </div>
+
+            <div class="plan-item">
+                <h3>📱 Instagram e Facebook Messenger <span class="price-tag">R$ 60,00</span></h3>
+                <p>Integre suas redes sociais ao atendimento omnichannel</p>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="socialMedia" onchange="updateCalculation()">
+                    <label for="socialMedia">Adicionar conexão de redes sociais</label>
                 </div>
-                <div id="socialSummary" class="summary-item" style="display: none;">
-                    <span>Instagram + Facebook</span>
-                    <span>R$ 60,00</span>
-                </div>
-                <div id="aiSummary" class="summary-item" style="display: none;">
-                    <span>Agente de IA</span>
-                    <span>R$ 350,00</span>
-                </div>
-                <div id="whiteGloveSummary" class="summary-item" style="display: none;">
-                    <span>💎 Cliente Ametista</span>
-                    <span id="whiteGlovePrice">R$ 0,00</span>
+            </div>
+
+            <!-- VoIP Card -->
+            <div class="plan-item voip-item">
+                <h3>
+                    📞 VoIP — Telefonia Digital
+                    <span class="price-tag voip">R$ 100,00/mês</span>
+                </h3>
+                <p>Telefonia profissional integrada à plataforma, sem limites de minutagem</p>
+
+                <div class="voip-features">
+                    <div class="voip-feature"><span class="icon">🔢</span> 5 linhas telefônicas digitais</div>
+                    <div class="voip-feature"><span class="icon">🔄</span> 1 ligação simultânea</div>
+                    <div class="voip-feature"><span class="icon">♾️</span> <strong>Minutagem ilimitada</strong></div>
+                    <div class="voip-feature"><span class="icon">🎙️</span> Gravação de chamadas</div>
+                    <div class="voip-feature"><span class="icon">📝</span> Transcrição automática</div>
+                    <div class="voip-feature"><span class="icon">📊</span> Dashboard de acompanhamento</div>
                 </div>
 
-                <div class="total-section">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="voip" class="voip-check" onchange="updateCalculation()">
+                    <label for="voip">Adicionar telefonia VoIP ao meu plano</label>
+                </div>
+            </div>
+
+            <div class="plan-item" style="border: 2px solid var(--color-primary);">
+                <h3>🤖 Agente de Inteligência Artificial <span class="badge badge-premium">PREMIUM</span></h3>
+                <p>Automação avançada com chatbot inteligente e respostas personalizadas</p>
+                <div style="margin: 15px 0; padding: 15px; background: #FFF9E6; border-radius: 6px;">
+                    <strong style="color: var(--color-primary);">Investimento:</strong><br>
+                    • Mensalidade: <strong>R$ 350,00</strong><br>
+                    • Desenvolvimento e implantação: <strong>R$ 1.600,00</strong> (pagamento único)
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="aiAgent" onchange="updateCalculation()">
+                    <label for="aiAgent">Adicionar Agente de IA ao meu plano</label>
+                </div>
+                <div id="aiDiscount" class="discount-applied" style="display: none;">
+                    ✔ Desconto aplicado! Taxa de implantação padrão removida (economia de R$ 400,00)
+                </div>
+            </div>
+
+            <div class="plan-item" style="border: 2px solid #9B4DAE; background: linear-gradient(135deg, #F8F4FB 0%, #F0E6F3 100%);">
+                <h3>💎 Cliente Ametista <span class="badge badge-premium">EXCLUSIVO</span></h3>
+                <p>Seu Account Manager pessoal: você decide, nós executamos</p>
+                <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 6px; border: 1px solid #9B4DAE;">
+                    <strong style="color: var(--color-primary);">Experiência Premium Completa:</strong><br>
+                    • <strong>Investimento:</strong> 50% da mensalidade (mínimo R$ 300,00)<br>
+                    • Account Manager dedicado à sua operação<br>
+                    • Nós fazemos toda configuração e ajustes para você<br>
+                    • Suporte proativo: antecipamos suas necessidades<br>
+                    • Foque no seu negócio, cuidamos da tecnologia<br>
+                    • Melhorias contínuas sem você precisar solicitar
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="whiteGlove" onchange="updateCalculation()">
+                    <label for="whiteGlove">💎 Quero ser Cliente Ametista</label>
+                </div>
+            </div>
+
+            <div class="info-note">
+                <strong>💡 Sobre a Implantação:</strong><br>
+                • Taxa padrão de implantação: R$ 400,00<br>
+                • Ao contratar o Agente de IA junto com o sistema, a taxa padrão é dispensada<br>
+                • Valores de desenvolvimento podem ser parcelados em até 6x no cartão de crédito
+            </div>
+        </div>
+
+        <!-- RIGHT: Summary -->
+        <div class="summary-section">
+            <h2 class="section-title">📋 Resumo do Plano</h2>
+
+            <div class="summary-item">
+                <span>Plano Base</span>
+                <span>R$ 200,00</span>
+            </div>
+            <div id="whatsappSummary" class="summary-item" style="display: none;">
+                <span>Conexões WhatsApp (<span id="whatsappQty">0</span>x)</span>
+                <span id="whatsappPrice">R$ 0,00</span>
+            </div>
+            <div id="usersSummary" class="summary-item" style="display: none;">
+                <span>Usuários Adicionais (<span id="usersQty">0</span>x)</span>
+                <span id="usersPrice">R$ 0,00</span>
+            </div>
+            <div id="socialSummary" class="summary-item" style="display: none;">
+                <span>Instagram + Facebook</span>
+                <span>R$ 60,00</span>
+            </div>
+            <div id="voipSummary" class="summary-item" style="display: none;">
+                <span>📞 VoIP — Telefonia Digital</span>
+                <span>R$ 100,00</span>
+            </div>
+            <div id="aiSummary" class="summary-item" style="display: none;">
+                <span>Agente de IA</span>
+                <span>R$ 350,00</span>
+            </div>
+            <div id="whiteGloveSummary" class="summary-item" style="display: none;">
+                <span>💎 Cliente Ametista</span>
+                <span id="whiteGlovePrice">R$ 0,00</span>
+            </div>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span>Mensalidade</span>
+                    <span id="monthlyTotal">R$ 200,00</span>
+                </div>
+                <div class="total-row main-total">
+                    <span>Total Mensal</span>
+                    <span id="finalTotal">R$ 200,00</span>
+                </div>
+
+                <div id="oneTimeSection" style="display: none; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 15px;">
                     <div class="total-row">
-                        <span>Mensalidade</span>
-                        <span id="monthlyTotal">R$ 200,00</span>
+                        <span>Pagamento Único</span>
+                        <span id="oneTimeTotal">R$ 0,00</span>
                     </div>
-                    <div class="total-row main-total">
-                        <span>Total Mensal</span>
-                        <span id="finalTotal">R$ 200,00</span>
-                    </div>
-                    
-                    <div id="oneTimeSection" style="display: none; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 15px;">
-                        <div class="total-row">
-                            <span>Pagamento Único</span>
-                            <span id="oneTimeTotal">R$ 0,00</span>
-                        </div>
-                        <div class="installment-note">
-                            Pode ser parcelado em até 6x no cartão
-                        </div>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="openProposalModal()">
-                        🎯 Gerar Proposta Comercial
-                    </button>
+                    <div class="installment-note">Pode ser parcelado em até 6x no cartão</div>
                 </div>
+
+                <button class="btn btn-primary" onclick="openProposalModal()">
+                    🏷️ Gerar Proposta Comercial
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="proposalModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📄 Gerar Proposta Comercial</h2>
-                <p>Preencha os dados para gerar sua proposta personalizada</p>
+<!-- PROPOSAL MODAL -->
+<div id="proposalModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>📄 Gerar Proposta Comercial</h2>
+            <p>Dados opcionais — você pode gerar uma simulação sem preencher nenhum campo</p>
+        </div>
+        <div class="modal-body">
+
+            <!-- Client Data -->
+            <div class="modal-section-title">Dados do Cliente <span style="font-weight:400;font-size:13px;color:rgba(123,45,142,0.6)">(todos opcionais)</span></div>
+
+            <div class="form-group">
+                <label>Nome da Empresa <span class="optional">(opcional)</span></label>
+                <input type="text" id="companyName" placeholder="Ex: Corretora XYZ Seguros">
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Nome da Empresa *</label>
-                    <input type="text" id="companyName" placeholder="Ex: Corretora XYZ Seguros">
-                </div>
-                <div class="form-group">
-                    <label>CNPJ</label>
-                    <input type="text" id="companyCNPJ" placeholder="00.000.000/0000-00">
-                </div>
-                <div class="form-group">
-                    <label>Nome do Responsável *</label>
-                    <input type="text" id="contactName" placeholder="Nome completo">
-                </div>
-                <div class="form-group">
-                    <label>E-mail de Contato *</label>
-                    <input type="email" id="contactEmail" placeholder="contato@empresa.com.br">
-                </div>
-                <div class="form-group">
-                    <label>Telefone</label>
-                    <input type="tel" id="contactPhone" placeholder="(00) 00000-0000">
-                </div>
+            <div class="form-group">
+                <label>CNPJ <span class="optional">(opcional)</span></label>
+                <input type="text" id="companyCNPJ" placeholder="00.000.000/0000-00">
+            </div>
+            <div class="form-group">
+                <label>Nome do Responsável <span class="optional">(opcional)</span></label>
+                <input type="text" id="contactName" placeholder="Nome completo">
+            </div>
+            <div class="form-group">
+                <label>E-mail de Contato <span class="optional">(opcional)</span></label>
+                <input type="email" id="contactEmail" placeholder="contato@empresa.com.br">
+            </div>
+            <div class="form-group">
+                <label>Telefone <span class="optional">(opcional)</span></label>
+                <input type="tel" id="contactPhone" placeholder="(00) 00000-0000">
+            </div>
 
-                <div style="border-top: 2px solid var(--color-border); padding-top: 20px; margin-top: 20px;">
-                    <h3 style="color: var(--color-primary); margin-bottom: 15px;">💰 Descontos Comerciais</h3>
+            <!-- Setup Discount -->
+            <div class="modal-section">
+                <div class="modal-section-title">💰 Desconto na Implantação <span style="font-weight:400;font-size:13px;color:rgba(123,45,142,0.6)">(opcional)</span></div>
+                <div class="custom-grid">
                     <div class="form-group">
-                        <label>Desconto no valor de desenvolvimento/implantação (R$)</label>
-                        <input type="number" id="setupDiscount" placeholder="0,00" min="0" step="0.01">
+                        <label>Desconto no valor de implantação (R$) <span class="optional">(opcional)</span></label>
+                        <input type="number" id="setupDiscount" placeholder="0,00" min="0" step="0.01" oninput="syncCustom()">
                     </div>
                     <div class="form-group">
-                        <label>Desconto no valor da mensalidade (R$)</label>
-                        <input type="number" id="monthlyDiscount" placeholder="0,00" min="0" step="0.01">
-                    </div>
-                    <div class="form-group">
-                        <label>Motivo do desconto</label>
-                        <input type="text" id="discountReason" placeholder="Ex: Cliente especial, parceria estratégica, etc.">
-                    </div>
-                    <div style="background: #FFF3CD; border-left: 4px solid #856404; padding: 12px; border-radius: 4px; font-size: 13px; color: #856404; margin-top: 5px;">
-                        ⚠️ Todo desconto aplicado será registrado na proposta como autorizado pelo <strong>Gerente Comercial Daniel Gois</strong>
+                        <label>Motivo do desconto <span class="optional">(opcional)</span></label>
+                        <input type="text" id="discountReason" placeholder="Ex: Cliente especial, parceria estratégica...">
                     </div>
                 </div>
-                
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" style="flex: 1;" onclick="closeProposalModal()">
-                        Cancelar
-                    </button>
-                    <button class="btn btn-primary" style="flex: 1;" onclick="generateProposal()">
-                        📥 Gerar PDF
-                    </button>
+            </div>
+
+            <!-- Custom Pricing -->
+            <div class="modal-section">
+                <label class="custom-pricing-toggle" for="enableCustomPricing">
+                    <input type="checkbox" id="enableCustomPricing" onchange="toggleCustomPricing()">
+                    🎛️ Personalizar valores do plano (plano diferenciado)
+                </label>
+
+                <div id="customPricingPanel" class="custom-pricing-panel">
+                    <div class="custom-warning">
+                        ⚠️ Ao personalizar os valores, a proposta indicará que os preços foram <strong>customizados para um plano diferenciado</strong>, devidamente <strong>autorizado pelo Gerente Comercial Daniel Gois</strong>.
+                    </div>
+
+                    <div class="form-group">
+                        <label>Motivo / Observação da customização <span class="optional">(opcional)</span></label>
+                        <input type="text" id="customReason" placeholder="Ex: Plano piloto, parceria, desconto fidelidade...">
+                    </div>
+
+                    <div class="custom-grid">
+                        <div class="form-group">
+                            <label>Plano Base (R$/mês)</label>
+                            <input type="number" id="customBase" placeholder="200,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp Adicional (R$/cada)</label>
+                            <input type="number" id="customWhatsapp" placeholder="99,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>Usuário Adicional (R$/cada)</label>
+                            <input type="number" id="customUser" placeholder="35,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>Redes Sociais (R$/mês)</label>
+                            <input type="number" id="customSocial" placeholder="60,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>VoIP (R$/mês)</label>
+                            <input type="number" id="customVoip" placeholder="100,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>IA — Mensalidade (R$/mês)</label>
+                            <input type="number" id="customAiMonthly" placeholder="350,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>IA — Implantação (R$ único)</label>
+                            <input type="number" id="customAiSetup" placeholder="1600,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group">
+                            <label>Implantação Padrão (R$ único)</label>
+                            <input type="number" id="customStandardSetup" placeholder="400,00" min="0" step="0.01" oninput="syncCustom()">
+                        </div>
+                        <div class="form-group" style="grid-column: 1/-1;">
+                            <label>Cliente Ametista — % da mensalidade (mín. R$ 300)</label>
+                            <input type="number" id="customWhiteGlovePct" placeholder="50" min="0" max="100" step="1" oninput="syncCustom()">
+                        </div>
+                    </div>
+
+                    <!-- Live preview of custom total -->
+                    <div id="customPreview" style="background:#F0E6F3;border-left:4px solid var(--color-primary);padding:12px 15px;border-radius:6px;margin-top:10px;font-size:14px;color:#3a1050;">
+                        <strong>Prévia com valores customizados:</strong>
+                        <span id="customPreviewText"> — preencha os campos acima</span>
+                    </div>
                 </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" style="flex:1;" onclick="closeProposalModal()">Cancelar</button>
+                <button class="btn btn-primary" style="flex:1;background:var(--color-primary);color:white;" onclick="generateProposal()">
+                    📥 Gerar PDF
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        let state = {
-            whatsapp: 0,
-            users: 0,
-            socialMedia: false,
-            aiAgent: false,
-            whiteGlove: false
-        };
+<script>
+    let state = {
+        whatsapp: 0,
+        users: 0,
+        socialMedia: false,
+        voip: false,
+        aiAgent: false,
+        whiteGlove: false
+    };
 
-        const prices = {
-            base: 200,
-            whatsapp: 99,
-            user: 35,
-            social: 60,
-            aiMonthly: 350,
-            aiSetup: 1600,
-            standardSetup: 400
-        };
+    const defaultPrices = {
+        base: 200,
+        whatsapp: 99,
+        user: 35,
+        social: 60,
+        voip: 100,
+        aiMonthly: 350,
+        aiSetup: 1600,
+        standardSetup: 400,
+        whiteGlovePct: 50
+    };
 
-        function increaseWhatsApp() {
-            state.whatsapp++;
-            updateDisplay();
-        }
+    /* ---- counter controls ---- */
+    function increaseWhatsApp() { state.whatsapp++; updateDisplay(); }
+    function decreaseWhatsApp() { if (state.whatsapp > 0) { state.whatsapp--; updateDisplay(); } }
+    function increaseUsers() { state.users++; updateDisplay(); }
+    function decreaseUsers() { if (state.users > 0) { state.users--; updateDisplay(); } }
 
-        function decreaseWhatsApp() {
-            if (state.whatsapp > 0) {
-                state.whatsapp--;
-                updateDisplay();
-            }
-        }
-
-        function increaseUsers() {
-            state.users++;
-            updateDisplay();
-        }
-
-        function decreaseUsers() {
-            if (state.users > 0) {
-                state.users--;
-                updateDisplay();
-            }
-        }
-
-        function updateCalculation() {
-            state.socialMedia = document.getElementById('socialMedia').checked;
-            state.aiAgent = document.getElementById('aiAgent').checked;
-            state.whiteGlove = document.getElementById('whiteGlove').checked;
-            
-            const aiDiscount = document.getElementById('aiDiscount');
-            if (state.aiAgent) {
-                aiDiscount.style.display = 'block';
-            } else {
-                aiDiscount.style.display = 'none';
-            }
-            
-            updateDisplay();
-        }
-
-        function updateDisplay() {
-            document.getElementById('whatsappCount').textContent = state.whatsapp;
-            document.getElementById('usersCount').textContent = state.users;
-
-            let monthlyTotal = prices.base;
-            let oneTimeTotal = 0;
-
-            const whatsappSummary = document.getElementById('whatsappSummary');
-            if (state.whatsapp > 0) {
-                const whatsappCost = state.whatsapp * prices.whatsapp;
-                monthlyTotal += whatsappCost;
-                whatsappSummary.style.display = 'flex';
-                document.getElementById('whatsappQty').textContent = state.whatsapp;
-                document.getElementById('whatsappPrice').textContent = `R$ ${whatsappCost.toFixed(2)}`;
-            } else {
-                whatsappSummary.style.display = 'none';
-            }
-
-            const usersSummary = document.getElementById('usersSummary');
-            if (state.users > 0) {
-                const usersCost = state.users * prices.user;
-                monthlyTotal += usersCost;
-                usersSummary.style.display = 'flex';
-                document.getElementById('usersQty').textContent = state.users;
-                document.getElementById('usersPrice').textContent = `R$ ${usersCost.toFixed(2)}`;
-            } else {
-                usersSummary.style.display = 'none';
-            }
-
-            const socialSummary = document.getElementById('socialSummary');
-            if (state.socialMedia) {
-                monthlyTotal += prices.social;
-                socialSummary.style.display = 'flex';
-            } else {
-                socialSummary.style.display = 'none';
-            }
-
-            const aiSummary = document.getElementById('aiSummary');
-            if (state.aiAgent) {
-                monthlyTotal += prices.aiMonthly;
-                oneTimeTotal = prices.aiSetup;
-                aiSummary.style.display = 'flex';
-            } else {
-                aiSummary.style.display = 'none';
-                oneTimeTotal = prices.standardSetup;
-            }
-
-            const whiteGloveSummary = document.getElementById('whiteGloveSummary');
-            if (state.whiteGlove) {
-                const calculatedCost = monthlyTotal * 0.5;
-                const whiteGloveCost = Math.max(300, calculatedCost);
-                monthlyTotal += whiteGloveCost;
-                whiteGloveSummary.style.display = 'flex';
-                document.getElementById('whiteGlovePrice').textContent = `R$ ${whiteGloveCost.toFixed(2)}`;
-            } else {
-                whiteGloveSummary.style.display = 'none';
-            }
-
-            document.getElementById('monthlyTotal').textContent = `R$ ${monthlyTotal.toFixed(2)}`;
-            document.getElementById('finalTotal').textContent = `R$ ${monthlyTotal.toFixed(2)}`;
-
-            const oneTimeSection = document.getElementById('oneTimeSection');
-            if (oneTimeTotal > 0) {
-                oneTimeSection.style.display = 'block';
-                document.getElementById('oneTimeTotal').textContent = `R$ ${oneTimeTotal.toFixed(2)}`;
-            } else {
-                oneTimeSection.style.display = 'none';
-            }
-        }
-
-        function openProposalModal() {
-            document.getElementById('proposalModal').classList.add('active');
-        }
-
-        function closeProposalModal() {
-            document.getElementById('proposalModal').classList.remove('active');
-        }
-
-        function generateProposal() {
-            const companyName = document.getElementById('companyName').value.trim();
-            const contactName = document.getElementById('contactName').value.trim();
-            const contactEmail = document.getElementById('contactEmail').value.trim();
-
-            if (!companyName || !contactName || !contactEmail) {
-                alert('Por favor, preencha todos os campos obrigatórios (*)');
-                return;
-            }
-
-            const companyCNPJ = document.getElementById('companyCNPJ').value.trim();
-            const contactPhone = document.getElementById('contactPhone').value.trim();
-            const setupDiscount = parseFloat(document.getElementById('setupDiscount').value) || 0;
-            const monthlyDiscount = parseFloat(document.getElementById('monthlyDiscount').value) || 0;
-            const discountReason = document.getElementById('discountReason').value.trim();
-
-            const proposal = generateProposalHTML(companyName, companyCNPJ, contactName, contactEmail, contactPhone, setupDiscount, monthlyDiscount, discountReason);
-            
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(proposal);
-            printWindow.document.close();
-            
-            setTimeout(() => {
-                printWindow.print();
-            }, 500);
-
-            closeProposalModal();
-        }
-
-        function generateProposalHTML(companyName, cnpj, contactName, email, phone, setupDiscount, monthlyDiscount, discountReason) {
-            const currentDate = new Date().toLocaleDateString('pt-BR', { 
-                day: '2-digit', 
-                month: 'long', 
-                year: 'numeric' 
-            });
-
-            let monthlyTotal = prices.base;
-            let oneTimeTotal = 0;
-
-            if (state.aiAgent) {
-                monthlyTotal += prices.aiMonthly;
-                oneTimeTotal = prices.aiSetup;
-            } else {
-                oneTimeTotal = prices.standardSetup;
-            }
-
-            if (state.whatsapp > 0) monthlyTotal += state.whatsapp * prices.whatsapp;
-            if (state.users > 0) monthlyTotal += state.users * prices.user;
-            if (state.socialMedia) monthlyTotal += prices.social;
-            
-            const whiteGloveCost = state.whiteGlove ? monthlyTotal * 0.5 : 0;
-            if (state.whiteGlove) monthlyTotal += whiteGloveCost;
-
-            oneTimeTotal = Math.max(0, oneTimeTotal - setupDiscount);
-
-            // Aplicar desconto na mensalidade (após cálculo do White Glove)
-            const originalMonthlyTotal = monthlyTotal;
-            monthlyTotal = Math.max(0, monthlyTotal - monthlyDiscount);
-
-            let featuresHTML = `
-                <div class="feature-section">
-                    <h3 style="color: #7B2D8E; margin-top: 25px; margin-bottom: 15px;">Recursos Inclusos no Plano</h3>
-                    
-                    <h4 style="color: #5E1E6E; margin-top: 20px;">Plataforma Base AtendeSEG</h4>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>WhatsApp Business API:</strong> ${1 + state.whatsapp} conexão(ões) integrada(s)</li>
-                        <li><strong>Gestão de Usuários:</strong> ${3 + state.users} usuário(s) simultâneo(s)</li>
-                        <li><strong>CRM Completo:</strong> Gestão de contatos ilimitada com campos customizáveis</li>
-                        <li><strong>Pipeline de Vendas:</strong> Funil visual personalizável por etapas</li>
-                        <li><strong>Chat em Tempo Real:</strong> Interface unificada para todos os atendimentos</li>
-                        <li><strong>Histórico Completo:</strong> Todas as conversas armazenadas permanentemente</li>
-                        <li><strong>Departamentos:</strong> Organização por equipes e especialidades</li>
-                        <li><strong>Etiquetas e Filtros:</strong> Categorização avançada de conversas</li>
-                        <li><strong>Mensagens Rápidas:</strong> Respostas pré-configuradas para agilizar atendimento</li>
-                        <li><strong>Transferência de Conversas:</strong> Entre agentes e departamentos</li>
-                        <li><strong>Status de Atendimento:</strong> Aberto, Em Andamento, Resolvido, Fechado</li>
-                        <li><strong>Relatórios e Métricas:</strong> Tempo de atendimento, satisfação, performance</li>
-                        <li><strong>Exportação de Dados:</strong> Relatórios em Excel e CSV</li>
-                        <li><strong>Busca Avançada:</strong> Por data, agente, departamento, etiquetas</li>
-                        <li><strong>Campos Customizados:</strong> Adicione informações específicas do seu negócio</li>
-                        <li><strong>Integração via API:</strong> Conecte com outros sistemas via webhook</li>
-                    </ul>
-            `;
-
-            if (state.whiteGlove) {
-                featuresHTML += `
-                    <h4 style="color: #5E1E6E; margin-top: 20px; page-break-inside: avoid;">💎 Cliente Ametista - Experiência Premium Exclusiva</h4>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>Account Manager Dedicado:</strong> Profissional exclusivo 100% focado na sua operação</li>
-                        <li><strong>Você Decide, Nós Executamos:</strong> Basta dizer o que precisa, fazemos acontecer</li>
-                        <li><strong>Configuração Completa por Nós:</strong> Zero trabalho técnico da sua parte</li>
-                        <li><strong>Suporte Proativo Inteligente:</strong> Antecipamos necessidades antes que você perceba</li>
-                        <li><strong>Melhorias Contínuas Automáticas:</strong> Otimizações constantes sem você precisar pedir</li>
-                        <li><strong>Atendimento Prioritário VIP:</strong> Prioridade máxima absoluta em tudo</li>
-                        <li><strong>Consultoria Estratégica Personalizada:</strong> Orientação especializada para seu mercado</li>
-                        <li><strong>Desenvolvimento Sob Medida:</strong> Soluções customizadas para suas necessidades únicas</li>
-                        <li><strong>Relatórios Executivos Exclusivos:</strong> Insights e análises detalhadas mensais</li>
-                        <li><strong>Treinamento VIP da Equipe:</strong> Capacitação completa e contínua com prioridade</li>
-                        <li><strong>Gestão Completa da Plataforma:</strong> Cuidamos de tudo enquanto você foca no negócio</li>
-                        <li><strong>Linha Direta com Especialista:</strong> Canal exclusivo de comunicação prioritária</li>
-                    </ul>
-                    <div style="background: #F0E6F3; padding: 12px; border-left: 4px solid #9B4DAE; margin-top: 15px; border-radius: 4px;">
-                        <strong>💎 Por que ser Cliente Ametista?</strong> Todos os clientes têm suporte técnico constante e imediato. Como Cliente Ametista, você ganha um Account Manager dedicado que gerencia proativamente toda sua operação: implementa melhorias continuamente, cuida de toda parte técnica e trabalhosa, e transforma suas ideias em realidade. Você apenas decide o que quer, nós cuidamos de fazer acontecer. Foque 100% no seu negócio enquanto garantimos que sua tecnologia funcione perfeitamente.
-                    </div>
-                `;
-            }
-
-            if (state.socialMedia) {
-                featuresHTML += `
-                    <h4 style="color: #5E1E6E; margin-top: 20px; page-break-inside: avoid;">Instagram & Facebook Messenger</h4>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>Integração Nativa:</strong> Receba mensagens diretas do Instagram e Messenger</li>
-                        <li><strong>Interface Unificada:</strong> Gerencie WhatsApp e redes sociais no mesmo lugar</li>
-                        <li><strong>Histórico Centralizado:</strong> Todas as interações em um único timeline</li>
-                        <li><strong>Atendimento Omnichannel:</strong> Cliente continua conversa em qualquer canal</li>
-                        <li><strong>Respostas Automáticas:</strong> Configure mensagens para ausência ou FAQ</li>
-                    </ul>
-                `;
-            }
-
-            if (state.aiAgent) {
-                featuresHTML += `
-                    <h4 style="color: #5E1E6E; margin-top: 20px; page-break-inside: avoid;">Agente de Inteligência Artificial (100% Autônomo)</h4>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>Agente Autônomo:</strong> Atendimento inteligente 24/7 com texto generativo contextualizado</li>
-                        <li><strong>175 Bilhões de Parâmetros:</strong> Modelo avançado com processamento em servidor próprio</li>
-                        <li><strong>Treinamento Local:</strong> Base de conhecimento personalizada com informações da sua corretora</li>
-                        <li><strong>Coleta de Dados:</strong> Identifica necessidades e coleta informações relevantes</li>
-                        <li><strong>Pré-Cotações Automatizadas:</strong> Solicita dados necessários para orçamentos de seguros</li>
-                        <li><strong>Qualificação de Leads:</strong> Avalia perfil e necessidades antes de transferir</li>
-                        <li><strong>Transferência Inteligente:</strong> Encaminha para setor responsável após coleta completa</li>
-                        <li><strong>Respostas Contextualizadas:</strong> Compreende histórico e personaliza interações</li>
-                        <li><strong>Aprendizado Contínuo:</strong> Ajustes ilimitados conforme feedback do cliente</li>
-                        <li><strong>Sem Limite de Interações:</strong> Capacidade ilimitada de atendimentos simultâneos</li>
-                        <li><strong>Análise de Sentimento:</strong> Detecta urgência e prioriza atendimentos críticos</li>
-                        <li><strong>Dashboard de Performance:</strong> Métricas detalhadas de assertividade e eficiência</li>
-                        <li><strong>Evolução Personalizada:</strong> A assertividade melhora continuamente com seu feedback</li>
-                    </ul>
-                    <div style="background: #E7F3FF; padding: 12px; border-left: 4px solid #2196F3; margin-top: 15px; border-radius: 4px;">
-                        <strong>Importante:</strong> A eficácia do agente de IA depende do treinamento contínuo de contexto e feedback constante do cliente, garantindo respostas cada vez mais alinhadas às necessidades específicas da sua operação.
-                    </div>
-                `;
-            }
-
-            featuresHTML += `
-                    <h4 style="color: #5E1E6E; margin-top: 20px;">Segurança e Conformidade</h4>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>Conformidade LGPD:</strong> Proteção de dados conforme legislação</li>
-                        <li><strong>Backup Automático:</strong> Seus dados sempre seguros</li>
-                        <li><strong>Permissões Granulares:</strong> Controle o que cada usuário pode acessar</li>
-                        <li><strong>Criptografia:</strong> Comunicação segura em todos os canais</li>
-                    </ul>
-
-                    <h4 style="color: #5E1E6E; margin-top: 20px; page-break-inside: avoid;">Específico para Corretoras de Seguros</h4>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>Estruturação Personalizada:</strong> Auxiliamos na criação de fluxos sob medida (cotação, renovação, sinistro, dúvidas)</li>
-                        <li><strong>Configuração Customizada:</strong> Cada corretora tem necessidades únicas - estruturamos juntos</li>
-                        <li><strong>Motivos de Fechamento:</strong> Sistema para rastrear por que leads não converteram</li>
-                        <li><strong>Gestão de Renovações:</strong> Configure alertas automáticos de vencimento</li>
-                        <li><strong>Campanhas Segmentadas:</strong> Ferramentas para disparo em massa personalizado</li>
-                        <li><strong>Integração com Seguradoras:</strong> Possível via API/Webhook (auxiliamos na implementação)</li>
-                    </ul>
-                    <div style="background: #FFF3CD; padding: 12px; border-left: 4px solid #FFC107; margin-top: 10px; border-radius: 4px; font-size: 14px;">
-                        <strong>Nota:</strong> Não fornecemos soluções prontas de "fórmula de bolo". Cada corretora possui processos únicos, e nossa missão é ajudá-lo a estruturar e implementar o sistema ideal para sua operação específica.
-                    </div>
-                </div>
-            `;
-
-            return `
-                <!DOCTYPE html>
-                <html lang="pt-BR">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Proposta Comercial - ${companyName}</title>
-                    <style>
-                        @page {
-                            margin: 2cm;
-                        }
-                        body {
-                            font-family: Arial, sans-serif;
-                            line-height: 1.6;
-                            color: #333;
-                            max-width: 800px;
-                            margin: 0 auto;
-                            padding: 20px;
-                        }
-                        .header {
-                            text-align: center;
-                            margin-bottom: 40px;
-                            padding-bottom: 20px;
-                            border-bottom: 3px solid #7B2D8E;
-                        }
-                        .header img {
-                            max-width: 250px;
-                            margin-bottom: 20px;
-                        }
-                        .header h1 {
-                            color: #7B2D8E;
-                            font-size: 28px;
-                            margin: 10px 0;
-                        }
-                        .info-section {
-                            background: #F8F9FA;
-                            padding: 20px;
-                            border-radius: 8px;
-                            margin-bottom: 30px;
-                        }
-                        .info-row {
-                            margin-bottom: 10px;
-                        }
-                        .info-row strong {
-                            color: #7B2D8E;
-                        }
-                        .pricing-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin: 30px 0;
-                        }
-                        .pricing-table th {
-                            background: #7B2D8E;
-                            color: white;
-                            padding: 15px;
-                            text-align: left;
-                        }
-                        .pricing-table td {
-                            padding: 12px 15px;
-                            border-bottom: 1px solid #DEE2E6;
-                        }
-                        .pricing-table tr:hover {
-                            background: #F8F9FA;
-                        }
-                        .total-row {
-                            background: #F0E6F3;
-                            font-weight: bold;
-                            font-size: 18px;
-                        }
-                        .total-row td {
-                            color: #7B2D8E;
-                            padding: 20px 15px;
-                        }
-                        .highlight-box {
-                            background: #FFF3CD;
-                            border-left: 4px solid #FFC107;
-                            padding: 15px;
-                            margin: 20px 0;
-                        }
-                        .footer {
-                            margin-top: 50px;
-                            padding-top: 20px;
-                            border-top: 2px solid #7B2D8E;
-                            text-align: center;
-                            color: #6C757D;
-                        }
-                        ul {
-                            margin-left: 20px;
-                        }
-                        li {
-                            margin-bottom: 8px;
-                        }
-                        h3 {
-                            color: #7B2D8E;
-                            margin-top: 30px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="header">
-                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e1676731-cad5-4dd2-8ba7-d421880d896a" alt="AtendeSEG Logo">
-                        <h1>Proposta Comercial</h1>
-                        <p>${currentDate}</p>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-                        <div class="info-section">
-                            <h3 style="margin-top: 0;">Dados do Cliente</h3>
-                            <div class="info-row"><strong>Empresa:</strong> ${companyName}</div>
-                            ${cnpj ? `<div class="info-row"><strong>CNPJ:</strong> ${cnpj}</div>` : ''}
-                            <div class="info-row"><strong>Responsável:</strong> ${contactName}</div>
-                            <div class="info-row"><strong>E-mail:</strong> ${email}</div>
-                            ${phone ? `<div class="info-row"><strong>Telefone:</strong> ${phone}</div>` : ''}
-                        </div>
-
-                        <div class="info-section">
-                            <h3 style="margin-top: 0;">Resumo Financeiro</h3>
-                            <div class="info-row"><strong>Mensalidade:</strong> <span style="font-size: 20px; color: #7B2D8E;">R$ ${monthlyTotal.toFixed(2)}</span>${monthlyDiscount > 0 ? `<br><small style="color: #155724;">✓ Inclui desconto de R$ ${monthlyDiscount.toFixed(2)} (aut. Ger. Comercial Daniel Gois)</small>` : ''}</div>
-                            ${oneTimeTotal > 0 ? `<div class="info-row"><strong>Investimento Inicial:</strong> <span style="font-size: 18px; color: #5E1E6E;">R$ ${oneTimeTotal.toFixed(2)}</span></div>` : ''}
-                            ${oneTimeTotal > 0 ? `<div class="info-row" style="font-size: 12px; color: #6C757D;">Parcelável em até 6x sem juros</div>` : ''}
-                            <div class="info-row" style="margin-top: 10px;">
-                                <strong>Configuração:</strong><br>
-                                <small>${1 + state.whatsapp} WhatsApp | ${3 + state.users} Usuários${state.socialMedia ? ' | Redes Sociais' : ''}${state.aiAgent ? ' | IA' : ''}${state.whiteGlove ? ' | White Glove' : ''}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3>Composição do Plano</h3>
-                    <table class="pricing-table">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Quantidade</th>
-                                <th>Valor Unit.</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Plano Base AtendeSEG</strong><br>
-                                    <small>1 WhatsApp + 3 Usuários + CRM Completo</small>
-                                </td>
-                                <td>1</td>
-                                <td>R$ 200,00</td>
-                                <td>R$ 200,00</td>
-                            </tr>
-                            ${state.whatsapp > 0 ? `
-                            <tr>
-                                <td>Conexões WhatsApp Adicionais</td>
-                                <td>${state.whatsapp}</td>
-                                <td>R$ 99,00</td>
-                                <td>R$ ${(state.whatsapp * prices.whatsapp).toFixed(2)}</td>
-                            </tr>
-                            ` : ''}
-                            ${state.users > 0 ? `
-                            <tr>
-                                <td>Usuários Adicionais</td>
-                                <td>${state.users}</td>
-                                <td>R$ 35,00</td>
-                                <td>R$ ${(state.users * prices.user).toFixed(2)}</td>
-                            </tr>
-                            ` : ''}
-                            ${state.socialMedia ? `
-                            <tr>
-                                <td>Instagram + Facebook Messenger</td>
-                                <td>1</td>
-                                <td>R$ 60,00</td>
-                                <td>R$ 60,00</td>
-                            </tr>
-                            ` : ''}
-                            ${state.aiAgent ? `
-                            <tr>
-                                <td><strong>Agente de Inteligência Artificial</strong></td>
-                                <td>1</td>
-                                <td>R$ 350,00</td>
-                                <td>R$ 350,00</td>
-                            </tr>
-                            ` : ''}
-                            ${state.whiteGlove ? `
-                            <tr style="background: #F8F4FB;">
-                                <td><strong>💎 Cliente Ametista</strong><br>
-                                    <small>Account Management Exclusivo (Mínimo R$ 300,00)</small>
-                                </td>
-                                <td>1</td>
-                                <td>R$ ${whiteGloveCost.toFixed(2)}</td>
-                                <td>R$ ${whiteGloveCost.toFixed(2)}</td>
-                            </tr>
-                            ` : ''}
-                            ${monthlyDiscount > 0 ? `
-                            <tr style="background: #D4EDDA;">
-                                <td colspan="3">
-                                    <strong style="color: #155724;">💰 Desconto na Mensalidade</strong><br>
-                                    <small>Desconto autorizado pelo Gerente Comercial <strong>Daniel Gois</strong></small>
-                                    ${discountReason ? `<br><small><em>Motivo: ${discountReason}</em></small>` : ''}
-                                </td>
-                                <td><strong style="color: #155724;">- R$ ${monthlyDiscount.toFixed(2)}</strong></td>
-                            </tr>` : ''}
-                            <tr class="total-row">
-                                <td colspan="3"><strong>${monthlyDiscount > 0 ? 'MENSALIDADE COM DESCONTO' : 'MENSALIDADE TOTAL'}</strong></td>
-                                <td><strong>R$ ${monthlyTotal.toFixed(2)}</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    ${featuresHTML}
-
-                    ${oneTimeTotal > 0 ? `
-                    <div style="page-break-before: always;"></div>
-                    <h3>Investimento Inicial (Pagamento Único)</h3>
-                    <table class="pricing-table">
-                        <tbody>
-                            ${state.aiAgent ? `
-                            <tr>
-                                <td><strong>Desenvolvimento e Implantação do Agente de IA</strong><br>
-                                    <small>Inclui treinamento, configuração e integração</small>
-                                </td>
-                                <td><strong>R$ ${prices.aiSetup.toFixed(2)}</strong></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="background: #D4EDDA; color: #155724;">
-                                    Taxa de implantação padrão dispensada (economia de R$ 400,00)
-                                </td>
-                            </tr>
-                            ` : `
-                            <tr>
-                                <td><strong>Implantação e Configuração Padrão</strong></td>
-                                <td><strong>R$ ${prices.standardSetup.toFixed(2)}</strong></td>
-                            </tr>
-                            `}
-                            ${setupDiscount > 0 ? `
-                            <tr style="background: #D4EDDA;">
-                                <td colspan="2">
-                                    <strong style="color: #155724;">💰 Desconto Aplicado: R$ ${setupDiscount.toFixed(2)}</strong><br>
-                                    <small>Desconto autorizado pelo Gerente Comercial <strong>Daniel Gois</strong></small>
-                                    ${discountReason ? `<br><small><em>Motivo: ${discountReason}</em></small>` : ''}
-                                </td>
-                            </tr>
-                            <tr class="total-row">
-                                <td><strong>VALOR FINAL DA IMPLANTAÇÃO</strong></td>
-                                <td><strong>R$ ${oneTimeTotal.toFixed(2)}</strong></td>
-                            </tr>
-                            ` : ''}
-                        </tbody>
-                    </table>
-                    <div class="highlight-box">
-                        <strong>Facilitamos seu investimento:</strong> Valores de desenvolvimento e implantação podem ser parcelados em até <strong>6x sem juros</strong> no cartão de crédito.
-                    </div>
-                    ` : ''}
-
-                    <h3>Suporte e Treinamento</h3>
-                    <ul>
-                        <li><strong>Suporte Técnico:</strong> Via WhatsApp, e-mail e telefone em horário comercial</li>
-                        <li><strong>Treinamento Inicial:</strong> Configuração completa e capacitação da equipe</li>
-                        <li><strong>Documentação:</strong> Acesso a manuais e tutoriais em vídeo</li>
-                        <li><strong>Evolução Contínua:</strong> Sem fidelidade e com compromisso - a plataforma evolui constantemente e sua mensalidade permanece a mesma</li>
-                    </ul>
-
-                    <h3>Próximos Passos</h3>
-                    <ol>
-                        <li>Aprovação da proposta</li>
-                        <li>Assinatura do contrato</li>
-                        <li>Pagamento da implantação (se aplicável)</li>
-                        <li>Configuração e treinamento da equipe</li>
-                        <li>Início da operação</li>
-                    </ol>
-
-                    <div class="highlight-box">
-                        <strong>Validade da Proposta:</strong> 15 dias corridos a partir da data de emissão.
-                    </div>
-
-                    <div class="footer">
-                        <p><strong>AtendeSEG</strong> - Plataforma Omnichannel para Corretoras de Seguros</p>
-                        <p>Dúvidas? Entre em contato conosco!</p>
-                        <p style="margin-top: 20px; font-size: 12px;">
-                            Este documento é uma proposta comercial e não representa um contrato vinculativo.<br>
-                            Os termos finais serão estabelecidos no contrato de prestação de serviços.
-                        </p>
-                    </div>
-                </body>
-                </html>
-            `;
-        }
-
+    function updateCalculation() {
+        state.socialMedia = document.getElementById('socialMedia').checked;
+        state.voip = document.getElementById('voip').checked;
+        state.aiAgent = document.getElementById('aiAgent').checked;
+        state.whiteGlove = document.getElementById('whiteGlove').checked;
+        document.getElementById('aiDiscount').style.display = state.aiAgent ? 'block' : 'none';
         updateDisplay();
-    </script>
+    }
+
+    function updateDisplay() {
+        document.getElementById('whatsappCount').textContent = state.whatsapp;
+        document.getElementById('usersCount').textContent = state.users;
+
+        const p = defaultPrices;
+        let monthly = p.base;
+        let oneTime = 0;
+
+        // WhatsApp
+        const wpS = document.getElementById('whatsappSummary');
+        if (state.whatsapp > 0) {
+            const c = state.whatsapp * p.whatsapp;
+            monthly += c;
+            wpS.style.display = 'flex';
+            document.getElementById('whatsappQty').textContent = state.whatsapp;
+            document.getElementById('whatsappPrice').textContent = fmt(c);
+        } else { wpS.style.display = 'none'; }
+
+        // Users
+        const uS = document.getElementById('usersSummary');
+        if (state.users > 0) {
+            const c = state.users * p.user;
+            monthly += c;
+            uS.style.display = 'flex';
+            document.getElementById('usersQty').textContent = state.users;
+            document.getElementById('usersPrice').textContent = fmt(c);
+        } else { uS.style.display = 'none'; }
+
+        // Social
+        const sS = document.getElementById('socialSummary');
+        if (state.socialMedia) { monthly += p.social; sS.style.display = 'flex'; }
+        else { sS.style.display = 'none'; }
+
+        // VoIP
+        const vS = document.getElementById('voipSummary');
+        if (state.voip) { monthly += p.voip; vS.style.display = 'flex'; }
+        else { vS.style.display = 'none'; }
+
+        // AI
+        const aS = document.getElementById('aiSummary');
+        if (state.aiAgent) {
+            monthly += p.aiMonthly;
+            oneTime = p.aiSetup;
+            aS.style.display = 'flex';
+        } else {
+            aS.style.display = 'none';
+            oneTime = p.standardSetup;
+        }
+
+        // White Glove
+        const wS = document.getElementById('whiteGloveSummary');
+        if (state.whiteGlove) {
+            const wc = Math.max(300, monthly * (p.whiteGlovePct / 100));
+            monthly += wc;
+            wS.style.display = 'flex';
+            document.getElementById('whiteGlovePrice').textContent = fmt(wc);
+        } else { wS.style.display = 'none'; }
+
+        document.getElementById('monthlyTotal').textContent = fmt(monthly);
+        document.getElementById('finalTotal').textContent = fmt(monthly);
+
+        const otS = document.getElementById('oneTimeSection');
+        if (oneTime > 0) {
+            otS.style.display = 'block';
+            document.getElementById('oneTimeTotal').textContent = fmt(oneTime);
+        } else { otS.style.display = 'none'; }
+    }
+
+    function fmt(v) { return 'R$ ' + v.toFixed(2).replace('.', ','); }
+
+    /* ---- modal ---- */
+    function openProposalModal() { document.getElementById('proposalModal').classList.add('active'); }
+    function closeProposalModal() { document.getElementById('proposalModal').classList.remove('active'); }
+
+    function toggleCustomPricing() {
+        const open = document.getElementById('enableCustomPricing').checked;
+        document.getElementById('customPricingPanel').classList.toggle('open', open);
+        if (open) syncCustom();
+    }
+
+    function getCustomPrices() {
+        const enabled = document.getElementById('enableCustomPricing').checked;
+        if (!enabled) return defaultPrices;
+        const v = (id, def) => { const n = parseFloat(document.getElementById(id).value); return (isNaN(n) || document.getElementById(id).value === '') ? def : n; };
+        return {
+            base: v('customBase', defaultPrices.base),
+            whatsapp: v('customWhatsapp', defaultPrices.whatsapp),
+            user: v('customUser', defaultPrices.user),
+            social: v('customSocial', defaultPrices.social),
+            voip: v('customVoip', defaultPrices.voip),
+            aiMonthly: v('customAiMonthly', defaultPrices.aiMonthly),
+            aiSetup: v('customAiSetup', defaultPrices.aiSetup),
+            standardSetup: v('customStandardSetup', defaultPrices.standardSetup),
+            whiteGlovePct: v('customWhiteGlovePct', defaultPrices.whiteGlovePct)
+        };
+    }
+
+    function computeTotals(p) {
+        let monthly = p.base;
+        let oneTime = 0;
+        if (state.whatsapp > 0) monthly += state.whatsapp * p.whatsapp;
+        if (state.users > 0) monthly += state.users * p.user;
+        if (state.socialMedia) monthly += p.social;
+        if (state.voip) monthly += p.voip;
+        if (state.aiAgent) { monthly += p.aiMonthly; oneTime = p.aiSetup; }
+        else { oneTime = p.standardSetup; }
+        let whiteGloveCost = 0;
+        if (state.whiteGlove) {
+            whiteGloveCost = Math.max(300, monthly * (p.whiteGlovePct / 100));
+            monthly += whiteGloveCost;
+        }
+        const setupDiscount = parseFloat(document.getElementById('setupDiscount').value) || 0;
+        oneTime = Math.max(0, oneTime - setupDiscount);
+        return { monthly, oneTime, whiteGloveCost };
+    }
+
+    function syncCustom() {
+        const p = getCustomPrices();
+        const { monthly, oneTime } = computeTotals(p);
+        const enabled = document.getElementById('enableCustomPricing').checked;
+        const previewText = document.getElementById('customPreviewText');
+        if (enabled) {
+            let t = ` Mensalidade: ${fmt(monthly)}`;
+            if (oneTime > 0) t += ` | Implantação: ${fmt(oneTime)}`;
+            previewText.textContent = t;
+        }
+    }
+
+    function generateProposal() {
+        const companyName  = document.getElementById('companyName').value.trim();
+        const companyCNPJ  = document.getElementById('companyCNPJ').value.trim();
+        const contactName  = document.getElementById('contactName').value.trim();
+        const contactEmail = document.getElementById('contactEmail').value.trim();
+        const contactPhone = document.getElementById('contactPhone').value.trim();
+        const setupDiscount = parseFloat(document.getElementById('setupDiscount').value) || 0;
+        const discountReason = document.getElementById('discountReason').value.trim();
+        const isCustom = document.getElementById('enableCustomPricing').checked;
+        const customReason = document.getElementById('customReason').value.trim();
+
+        const p = getCustomPrices();
+        const { monthly, oneTime, whiteGloveCost } = computeTotals(p);
+
+        const html = buildProposalHTML({
+            companyName, companyCNPJ, contactName, contactEmail, contactPhone,
+            setupDiscount, discountReason, isCustom, customReason,
+            p, monthly, oneTime, whiteGloveCost
+        });
+
+        const win = window.open('', '_blank');
+        win.document.write(html);
+        win.document.close();
+        setTimeout(() => win.print(), 600);
+        closeProposalModal();
+    }
+
+    function buildProposalHTML(d) {
+        const { companyName, companyCNPJ, contactName, contactEmail, contactPhone,
+                setupDiscount, discountReason, isCustom, customReason,
+                p, monthly, oneTime, whiteGloveCost } = d;
+
+        const currentDate = new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' });
+
+        const hasClientData = companyName || contactName || contactEmail || contactPhone || companyCNPJ;
+
+        const customBanner = isCustom ? `
+            <div style="background:#FFF3CD;border-left:5px solid #FFC107;padding:18px 20px;border-radius:6px;margin-bottom:30px;">
+                <div style="font-size:16px;font-weight:700;color:#856404;margin-bottom:6px;">⚠️ Plano Diferenciado — Valores Customizados</div>
+                <div style="font-size:14px;color:#856404;">
+                    Esta proposta contempla valores customizados para um <strong>plano diferenciado</strong>, devidamente 
+                    <strong>autorizado pelo Gerente Comercial Daniel Gois</strong>.
+                    ${customReason ? `<br><em>Justificativa: ${customReason}</em>` : ''}
+                </div>
+            </div>` : '';
+
+        const diffRow = (label, customVal, defVal) => {
+            if (!isCustom || customVal === defVal) return '';
+            return `<tr style="background:#FFFBE6;">
+                <td colspan="3" style="font-size:12px;color:#856404;padding:4px 15px;">
+                    ↳ Valor de tabela: R$ ${defVal.toFixed(2)} → customizado para: R$ ${customVal.toFixed(2)}
+                </td>
+            </tr>`;
+        };
+
+        const clientSection = hasClientData ? `
+            <div class="info-section">
+                <h3 style="margin-top:0;color:#7B2D8E;">Dados do Cliente</h3>
+                ${companyName  ? `<div class="info-row"><strong>Empresa:</strong> ${companyName}</div>` : ''}
+                ${companyCNPJ  ? `<div class="info-row"><strong>CNPJ:</strong> ${companyCNPJ}</div>` : ''}
+                ${contactName  ? `<div class="info-row"><strong>Responsável:</strong> ${contactName}</div>` : ''}
+                ${contactEmail ? `<div class="info-row"><strong>E-mail:</strong> ${contactEmail}</div>` : ''}
+                ${contactPhone ? `<div class="info-row"><strong>Telefone:</strong> ${contactPhone}</div>` : ''}
+            </div>` : `
+            <div class="info-section">
+                <h3 style="margin-top:0;color:#7B2D8E;">Simulação de Proposta</h3>
+                <p style="color:#6C757D;font-size:14px;">Esta proposta foi gerada como simulação. Para personalizar com dados do cliente, utilize o formulário de geração de proposta.</p>
+            </div>`;
+
+        const voipSection = state.voip ? `
+            <h4 style="color:#0A6EBD;margin-top:20px;">📞 VoIP — Telefonia Digital</h4>
+            <ul style="line-height:1.8;">
+                <li><strong>5 Linhas Telefônicas Digitais:</strong> Números fixos ou móveis integrados à plataforma</li>
+                <li><strong>Minutagem Ilimitada:</strong> Sem limites de ligações, sem surpresas na fatura</li>
+                <li><strong>1 Ligação Simultânea:</strong> Canal dedicado para sua operação</li>
+                <li><strong>Gravação Completa de Chamadas:</strong> Todas as ligações gravadas e armazenadas</li>
+                <li><strong>Transcrição Automática:</strong> Conteúdo das chamadas transcrito automaticamente em texto</li>
+                <li><strong>Dashboard de Acompanhamento:</strong> Métricas de volume, duração e performance das chamadas</li>
+                <li><strong>Histórico Unificado:</strong> Chamadas integradas ao perfil do contato no CRM</li>
+            </ul>` : '';
+
+        return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Proposta Comercial${companyName ? ' — ' + companyName : ''}</title>
+<style>
+@page { margin: 2cm; }
+body { font-family: Arial, sans-serif; line-height:1.6; color:#333; max-width:800px; margin:0 auto; padding:20px; }
+.header { text-align:center; margin-bottom:40px; padding-bottom:20px; border-bottom:3px solid #7B2D8E; }
+.header h1 { color:#7B2D8E; font-size:28px; margin:10px 0; }
+.info-section { background:#F8F9FA; padding:20px; border-radius:8px; margin-bottom:20px; }
+.info-row { margin-bottom:8px; }
+.info-row strong { color:#7B2D8E; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:30px; }
+table { width:100%; border-collapse:collapse; margin:20px 0; }
+th { background:#7B2D8E; color:white; padding:12px 15px; text-align:left; }
+td { padding:10px 15px; border-bottom:1px solid #DEE2E6; }
+.total-row { background:#F0E6F3; font-weight:bold; }
+.total-row td { color:#7B2D8E; padding:16px 15px; font-size:17px; }
+.highlight { background:#FFF3CD; border-left:4px solid #FFC107; padding:14px; margin:20px 0; border-radius:4px; }
+.footer { margin-top:50px; padding-top:20px; border-top:2px solid #7B2D8E; text-align:center; color:#6C757D; }
+ul { margin-left:20px; } li { margin-bottom:6px; }
+h3 { color:#7B2D8E; margin-top:25px; }
+h4 { color:#5E1E6E; margin-top:20px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e1676731-cad5-4dd2-8ba7-d421880d896a" alt="AtendeSEG" style="max-width:250px;margin-bottom:15px;">
+    <h1>Proposta Comercial</h1>
+    <p>${currentDate}</p>
+</div>
+
+${customBanner}
+
+<div class="grid2">
+    ${clientSection}
+    <div class="info-section">
+        <h3 style="margin-top:0;color:#7B2D8E;">Resumo Financeiro</h3>
+        <div class="info-row"><strong>Mensalidade:</strong> <span style="font-size:22px;color:#7B2D8E;">${fmt(monthly)}</span></div>
+        ${oneTime > 0 ? `<div class="info-row"><strong>Investimento Inicial:</strong> <span style="font-size:18px;color:#5E1E6E;">${fmt(oneTime)}</span></div>` : ''}
+        ${oneTime > 0 ? `<div class="info-row" style="font-size:12px;color:#6C757D;">Parcelável em até 6x sem juros</div>` : ''}
+        <div class="info-row" style="margin-top:10px;">
+            <strong>Configuração:</strong><br>
+            <small>
+                ${1 + state.whatsapp} WhatsApp · ${3 + state.users} Usuários
+                ${state.socialMedia ? ' · Redes Sociais' : ''}
+                ${state.voip ? ' · VoIP' : ''}
+                ${state.aiAgent ? ' · IA' : ''}
+                ${state.whiteGlove ? ' · Ametista' : ''}
+                ${isCustom ? ' · <strong style="color:#856404;">Plano Diferenciado</strong>' : ''}
+            </small>
+        </div>
+    </div>
+</div>
+
+<h3>Composição do Plano</h3>
+${isCustom ? `<div style="background:#FFFBE6;border-left:4px solid #FFC107;padding:10px 14px;border-radius:4px;font-size:13px;color:#856404;margin-bottom:12px;">
+    ★ Valores customizados — plano diferenciado autorizado pelo Gerente Comercial Daniel Gois${customReason ? ' · ' + customReason : ''}
+</div>` : ''}
+<table>
+<thead><tr><th>Item</th><th>Qtd</th><th>Valor Unit.</th><th>Total</th></tr></thead>
+<tbody>
+<tr>
+    <td><strong>Plano Base AtendeSEG</strong><br><small>1 WhatsApp + 3 Usuários + CRM Completo</small></td>
+    <td>1</td><td>${fmt(p.base)}</td><td>${fmt(p.base)}</td>
+</tr>
+${isCustom && p.base !== defaultPrices.base ? `<tr style="background:#FFFBE6;"><td colspan="4" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.base)} → customizado</td></tr>` : ''}
+${state.whatsapp > 0 ? `
+<tr>
+    <td>Conexões WhatsApp Adicionais</td>
+    <td>${state.whatsapp}</td><td>${fmt(p.whatsapp)}</td><td>${fmt(state.whatsapp * p.whatsapp)}</td>
+</tr>
+${isCustom && p.whatsapp !== defaultPrices.whatsapp ? `<tr style="background:#FFFBE6;"><td colspan="4" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.whatsapp)}/cada → customizado</td></tr>` : ''}` : ''}
+${state.users > 0 ? `
+<tr>
+    <td>Usuários Adicionais</td>
+    <td>${state.users}</td><td>${fmt(p.user)}</td><td>${fmt(state.users * p.user)}</td>
+</tr>
+${isCustom && p.user !== defaultPrices.user ? `<tr style="background:#FFFBE6;"><td colspan="4" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.user)}/cada → customizado</td></tr>` : ''}` : ''}
+${state.socialMedia ? `
+<tr>
+    <td>Instagram + Facebook Messenger</td>
+    <td>1</td><td>${fmt(p.social)}</td><td>${fmt(p.social)}</td>
+</tr>
+${isCustom && p.social !== defaultPrices.social ? `<tr style="background:#FFFBE6;"><td colspan="4" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.social)} → customizado</td></tr>` : ''}` : ''}
+${state.voip ? `
+<tr style="background:#F0F8FF;">
+    <td><strong>📞 VoIP — Telefonia Digital</strong><br>
+        <small>5 linhas · 1 simultânea · Minutagem ilimitada · Gravação + Transcrição · Dashboard</small>
+    </td>
+    <td>1</td><td>${fmt(p.voip)}</td><td>${fmt(p.voip)}</td>
+</tr>
+${isCustom && p.voip !== defaultPrices.voip ? `<tr style="background:#FFFBE6;"><td colspan="4" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.voip)} → customizado</td></tr>` : ''}` : ''}
+${state.aiAgent ? `
+<tr>
+    <td><strong>Agente de Inteligência Artificial</strong></td>
+    <td>1</td><td>${fmt(p.aiMonthly)}</td><td>${fmt(p.aiMonthly)}</td>
+</tr>
+${isCustom && p.aiMonthly !== defaultPrices.aiMonthly ? `<tr style="background:#FFFBE6;"><td colspan="4" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.aiMonthly)} → customizado</td></tr>` : ''}` : ''}
+${state.whiteGlove ? `
+<tr style="background:#F8F4FB;">
+    <td><strong>💎 Cliente Ametista</strong><br><small>Account Management Exclusivo (Mínimo R$ 300,00)</small></td>
+    <td>1</td><td>${fmt(whiteGloveCost)}</td><td>${fmt(whiteGloveCost)}</td>
+</tr>` : ''}
+<tr class="total-row">
+    <td colspan="3"><strong>MENSALIDADE TOTAL</strong></td>
+    <td><strong>${fmt(monthly)}</strong></td>
+</tr>
+</tbody>
+</table>
+
+<!-- Features -->
+<h3>Recursos Inclusos no Plano</h3>
+<h4>Plataforma Base AtendeSEG</h4>
+<ul style="line-height:1.8;">
+    <li><strong>WhatsApp Business API:</strong> ${1 + state.whatsapp} conexão(ões) integrada(s)</li>
+    <li><strong>Gestão de Usuários:</strong> ${3 + state.users} usuário(s) simultâneo(s)</li>
+    <li><strong>CRM Completo:</strong> Gestão de contatos ilimitada com campos customizáveis</li>
+    <li><strong>Pipeline de Vendas:</strong> Funil visual personalizável por etapas</li>
+    <li><strong>Chat em Tempo Real:</strong> Interface unificada para todos os atendimentos</li>
+    <li><strong>Histórico Completo:</strong> Todas as conversas armazenadas permanentemente</li>
+    <li><strong>Departamentos, Etiquetas e Filtros:</strong> Categorização avançada de conversas</li>
+    <li><strong>Mensagens Rápidas:</strong> Respostas pré-configuradas para agilizar atendimento</li>
+    <li><strong>Relatórios e Métricas:</strong> Tempo de atendimento, satisfação, performance</li>
+    <li><strong>Exportação de Dados:</strong> Relatórios em Excel e CSV</li>
+    <li><strong>Integração via API:</strong> Conecte com outros sistemas via webhook</li>
+</ul>
+
+${voipSection}
+
+${state.socialMedia ? `
+<h4>Instagram &amp; Facebook Messenger</h4>
+<ul style="line-height:1.8;">
+    <li><strong>Integração Nativa:</strong> Receba mensagens diretas do Instagram e Messenger</li>
+    <li><strong>Interface Unificada:</strong> Gerencie WhatsApp e redes sociais no mesmo lugar</li>
+    <li><strong>Atendimento Omnichannel:</strong> Cliente continua conversa em qualquer canal</li>
+    <li><strong>Respostas Automáticas:</strong> Configure mensagens para ausência ou FAQ</li>
+</ul>` : ''}
+
+${state.aiAgent ? `
+<h4>Agente de Inteligência Artificial (100% Autônomo)</h4>
+<ul style="line-height:1.8;">
+    <li><strong>Agente Autônomo:</strong> Atendimento inteligente 24/7 com texto generativo contextualizado</li>
+    <li><strong>Treinamento Local:</strong> Base de conhecimento personalizada com informações da sua corretora</li>
+    <li><strong>Coleta de Dados e Pré-Cotações Automatizadas</strong></li>
+    <li><strong>Qualificação de Leads:</strong> Avalia perfil e necessidades antes de transferir</li>
+    <li><strong>Aprendizado Contínuo:</strong> Ajustes ilimitados conforme feedback do cliente</li>
+    <li><strong>Sem Limite de Interações:</strong> Capacidade ilimitada de atendimentos simultâneos</li>
+    <li><strong>Dashboard de Performance:</strong> Métricas detalhadas de assertividade e eficiência</li>
+</ul>` : ''}
+
+${state.whiteGlove ? `
+<h4>💎 Cliente Ametista — Experiência Premium Exclusiva</h4>
+<ul style="line-height:1.8;">
+    <li><strong>Account Manager Dedicado:</strong> Profissional exclusivo 100% focado na sua operação</li>
+    <li><strong>Você Decide, Nós Executamos:</strong> Basta dizer o que precisa, fazemos acontecer</li>
+    <li><strong>Configuração Completa por Nós:</strong> Zero trabalho técnico da sua parte</li>
+    <li><strong>Suporte Proativo Inteligente:</strong> Antecipamos necessidades antes que você perceba</li>
+    <li><strong>Melhorias Contínuas Automáticas</strong></li>
+    <li><strong>Atendimento Prioritário VIP</strong></li>
+</ul>` : ''}
+
+${oneTime > 0 ? `
+<div style="page-break-before:always;"></div>
+<h3>Investimento Inicial (Pagamento Único)</h3>
+<table>
+<tbody>
+${state.aiAgent ? `
+<tr>
+    <td><strong>Desenvolvimento e Implantação do Agente de IA</strong><br><small>Inclui treinamento, configuração e integração</small></td>
+    <td><strong>${fmt(p.aiSetup)}</strong></td>
+</tr>
+${isCustom && p.aiSetup !== defaultPrices.aiSetup ? `<tr style="background:#FFFBE6;"><td colspan="2" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.aiSetup)} → customizado</td></tr>` : ''}
+<tr><td colspan="2" style="background:#D4EDDA;color:#155724;">Taxa de implantação padrão dispensada (economia de R$ 400,00)</td></tr>
+` : `
+<tr>
+    <td><strong>Implantação e Configuração Padrão</strong></td>
+    <td><strong>${fmt(p.standardSetup)}</strong></td>
+</tr>
+${isCustom && p.standardSetup !== defaultPrices.standardSetup ? `<tr style="background:#FFFBE6;"><td colspan="2" style="font-size:12px;color:#856404;padding:3px 15px;">↳ Valor de tabela: ${fmt(defaultPrices.standardSetup)} → customizado</td></tr>` : ''}
+`}
+${setupDiscount > 0 ? `
+<tr style="background:#D4EDDA;">
+    <td colspan="2">
+        <strong style="color:#155724;">💰 Desconto Aplicado: ${fmt(setupDiscount)}</strong><br>
+        <small>Desconto ofertado pelo Gerente Comercial Daniel Gois</small>
+        ${discountReason ? `<br><small><em>Motivo: ${discountReason}</em></small>` : ''}
+    </td>
+</tr>
+<tr class="total-row">
+    <td><strong>VALOR FINAL DA IMPLANTAÇÃO</strong></td>
+    <td><strong>${fmt(oneTime)}</strong></td>
+</tr>` : ''}
+</tbody>
+</table>
+<div class="highlight">
+    <strong>Facilitamos seu investimento:</strong> Valores de implantação podem ser parcelados em até <strong>6x sem juros</strong> no cartão de crédito.
+</div>` : ''}
+
+<h3>Suporte e Treinamento</h3>
+<ul>
+    <li><strong>Suporte Técnico:</strong> Via WhatsApp, e-mail e telefone em horário comercial</li>
+    <li><strong>Treinamento Inicial:</strong> Configuração completa e capacitação da equipe</li>
+    <li><strong>Documentação:</strong> Acesso a manuais e tutoriais em vídeo</li>
+    <li><strong>Evolução Contínua:</strong> Sem fidelidade — a plataforma evolui constantemente e sua mensalidade permanece a mesma</li>
+</ul>
+
+<h3>Próximos Passos</h3>
+<ol><li>Aprovação da proposta</li><li>Assinatura do contrato</li><li>Pagamento da implantação (se aplicável)</li><li>Configuração e treinamento da equipe</li><li>Início da operação</li></ol>
+
+<div class="highlight"><strong>Validade da Proposta:</strong> 15 dias corridos a partir da data de emissão.</div>
+
+<div class="footer">
+    <p><strong>AtendeSEG</strong> — Plataforma Omnichannel para Corretoras de Seguros</p>
+    <p>Dúvidas? Entre em contato conosco!</p>
+    <p style="margin-top:20px;font-size:12px;">
+        Este documento é uma proposta comercial e não representa um contrato vinculativo.<br>
+        Os termos finais serão estabelecidos no contrato de prestação de serviços.
+        ${isCustom ? '<br><em>Valores customizados autorizados pelo Gerente Comercial Daniel Gois.</em>' : ''}
+    </p>
+</div>
+</body>
+</html>`;
+    }
+
+    updateDisplay();
+</script>
 </body>
 </html>
